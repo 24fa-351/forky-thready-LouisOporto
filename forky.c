@@ -43,22 +43,24 @@ int main (int argc, char* argv[]) {
                 // Begin child process
                 printf("Process child process %d (%d)\n", i + 1, getpid());
                 
-                sleep(rand() % 8);
+                sleep(rand() % 1); // sleep between 1 - 8 sec
                 // Exit child
                 printf("Exiting child process %d (%d)\n", i + 1, getpid());
                 exit(0);
             }
         }
-        
         int status;
         for(int i = 0; i < size; i++) {
             wait(&status);
         }
     }
+
     // TODO - Recursively call the process to call a another process of process.
     if (pattern == 2) {
-        printf("Pattern 2\n");
+        printf("New pattern 2 show only ONCE\n");
         makeProcess(size, 0, 0);
+        int status;
+        wait(&status);
     }
 
     /* OPTIONAL */
@@ -77,10 +79,15 @@ void makeProcess(int size, int count, int prevPid) {
 
         count += 1;
         prevPid = getpid();
-        printf("Process %d beginning (%d)\n", count, prevPid);
-        makeProcess(size, count, prevPid);
-        sleep(rand() % 8);
-        printf("Process %d exiting (%d)\n", count, prevPid);
+
+        printf("Process %d beginning (%d)\n", count, getpid());
+        if(count < size) makeProcess(size, count, prevPid);
+
+        sleep(rand() % 1); // 1 - 8
+        printf("Process %d exiting (%d)\n", count, getpid());
         exit(0);
     }
+
+    int status;
+    wait(&status);
 }
