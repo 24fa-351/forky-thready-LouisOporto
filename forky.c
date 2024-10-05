@@ -79,7 +79,7 @@ void makeProcess(int size, int count, int prevPid) {
         fflush(stdout);  // Clear buffer
         if (count < size) makeProcess(size, count, prevPid);
 
-        sleep(rand() % 8);
+        sleep(rand() % 4); // Short than pattern 1 (Very slow)
         printf("Process %d exiting (%d)\n", count, getpid());
         exit(0);
     }
