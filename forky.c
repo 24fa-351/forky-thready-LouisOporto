@@ -58,6 +58,7 @@ int main (int argc, char* argv[]) {
     // TODO - Recursively call the process to call a another process of process.
     if (pattern == 2) {
         printf("New pattern 2 show only ONCE\n");
+        fflush(stdout); // Prevents buffer loading in fork()
         makeProcess(size, 0, 0);
         int status;
         wait(&status);
@@ -81,6 +82,7 @@ void makeProcess(int size, int count, int prevPid) {
         prevPid = getpid();
 
         printf("Process %d beginning (%d)\n", count, getpid());
+        fflush(stdout); // Clear buffer
         if(count < size) makeProcess(size, count, prevPid);
 
         sleep(rand() % 1); // 1 - 8
