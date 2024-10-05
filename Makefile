@@ -10,4 +10,4 @@ debug:
 	gcc -g *.c -o debug.exe
 
 test:
-	bash result.sh
+	bash results.sh
